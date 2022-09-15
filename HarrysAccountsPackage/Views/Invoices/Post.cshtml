@@ -1,0 +1,69 @@
+﻿@model HarrysAccountsPackage.Models.Invoices
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<div class="row mt-4">
+    <div class="col-md-4 border border-dark bg-light text-dark">
+        <h1>Post</h1>
+
+        <h4>Invoices</h4>
+        <hr />
+        <form method="post" asp-controller="Invoices" asp-action="Post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountCode" class="control-label"></label>
+                <input asp-for="AccountCode" class="form-control" />
+                <span asp-validation-for="AccountCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvoiceNumber" class="control-label"></label>
+                <input asp-for="InvoiceNumber" class="form-control" />
+                <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvoiceDate" class="control-label"></label>
+                <input asp-for="InvoiceDate" class="form-control" />
+                <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvoiceDueDate" class="control-label"></label>
+                <input asp-for="InvoiceDueDate" class="form-control" />
+                <span asp-validation-for="InvoiceDueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Net" class="control-label"></label>
+                <input asp-for="Net" class="form-control" />
+                <span asp-validation-for="Net" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vat" class="control-label"></label>
+                <input asp-for="Vat" class="form-control" />
+                <span asp-validation-for="Vat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gross" class="control-label"></label>
+                <input asp-for="Gross" class="form-control" />
+                <span asp-validation-for="Gross" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Payment Status</label>
+                <select asp-for="Status" class="form-control" />
+                <option value="Cleared">Cleared</option>
+                <option value="On-Hold">On-Hold</option>
+                <option value="Paid">Paid</option>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-2 mb-2" />
+                <a asp-controller="Account" asp-action="SalesLedger">Back to Sales Ledger</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HarrysAccountsPackage.Models.Account>
+
+
+<div class="container border border-dark bg-light text-dark">
+    <div class="row">
+        <div class="col">
+            <h1>GetAccountCodeList</h1>
+            <p>
+                <a asp-controller="Account" asp-action="Post">Post New Account</a>
+            </p>
+            <hr />
+            <table class="table table-bordered bg-white text-dark">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccountCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccountName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PaymentTerms)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentTerms)
+                            </td>
+                            <td>
+                                <a asp-controller="Account" asp-action="GetByAccountCode" asp-route-AccountCode="@item.AccountCode">Open Account</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

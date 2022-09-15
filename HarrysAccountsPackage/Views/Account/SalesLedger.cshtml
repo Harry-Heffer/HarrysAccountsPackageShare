@@ -1,0 +1,45 @@
+﻿@model Account
+
+
+<div class="container border bg-black text-dark mt-4">
+    <h1 class="mt-3 bg-light text-dark border border-2 border-dark p-2">Sales Ledger</h1>
+    <hr />
+    <div class="container mt-3 border-top border-start border-end border-dark bg-light">
+        <div class="row">
+            <div class="col-6 border border-dark">
+                <h2 class="mt-1">Customer Enquiry</h2>
+            </div>
+            <div class="col-3 border border-dark">
+                <h2 class="mt-1">Account Code:</h2>
+            </div>
+            <div class="col-3 border border-dark">
+                <form class="mt-2" method="get" asp-controller="Account" asp-action="GetByAccountCode">
+                    <input asp-for="AccountCode" style="width:78%;" />
+                    <button type="submit"><i class="bi bi-arrow-down-square"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border-start border-end border-dark bg-light">
+        <div class="row">
+            <div class="col-6 border border-dark">
+                <h2 class="mt-1">Post New Accounts</h2>
+            </div>
+            <div class="col-6 border border-dark">
+                <button class="btn" style="height:100%; font-size: 20px;"><a asp-controller="Account" asp-action="Post">Post</a></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border-start border-end border-bottom border-dark bg-light mb-3">
+        <div class="row">
+            <div class="col-6 border border-dark">
+                <h2 class="mt-1">Post New Invoices</h2>
+            </div>
+            <div class="col-6 border border-dark">
+                <button class="btn" style="height:100%; font-size: 20px"><a asp-controller="Invoices" asp-action="Post">Post</a></button>
+            </div>
+        </div>
+    </div>
+</div>

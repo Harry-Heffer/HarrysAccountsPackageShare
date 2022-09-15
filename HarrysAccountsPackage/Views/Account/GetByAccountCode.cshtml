@@ -1,0 +1,55 @@
+﻿@model Account
+
+<div class="container mt-4 p-3 border border-dark bg-light text-black">
+    <div class="container p2">
+        <div class="row">
+            <div class="col-2 border border-dark bg-white">
+                <h3>Account Code:</h3>
+            </div>
+            <div class="col-3 border border-dark bg-white">
+                <h3>@Model.AccountCode</h3>
+            </div>
+            <div class="col-7 border border-dark bg-white">
+                <h3>@Model.AccountName</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 mt-3">
+                <button class="btn bg-dark"><a asp-controller="Account" asp-action="GetByAccountCode" asp-route-AccountCode="@Model.AccountCode">Account Details</a></button>
+            </div>
+            <div class="col-2 mt-3">
+                <button class="btn"><a asp-controller="Invoices" asp-action="GetAccountInvoices" asp-route-AccountCode="@Model.AccountCode">Invoices</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Customer Name:</h4>
+                    <h4 class="p-1">@Model.AccountName</h4>
+                </div>
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Customer Account Code:</h4>
+                    <h4 class="p-1">@Model.AccountCode</h4>
+                </div>
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Payment Terms:</h4>
+                    <h4 class="p-1">@Model.PaymentTerms @Model.TermsType</h4>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Customer Address:</h4>
+                    <h4 class="p-1">@Model.Address</h4>
+                </div>
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Phone Number:</h4>
+                    <h4 class="p-1">@Model.PhoneNumber</h4>
+                </div>
+                <div class="border border-dark mt-3 bg-white">
+                    <h4 class="border-bottom border-dark p-1">Email Address:</h4>
+                    <h4 class="p-1">@Model.EmailAddress</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

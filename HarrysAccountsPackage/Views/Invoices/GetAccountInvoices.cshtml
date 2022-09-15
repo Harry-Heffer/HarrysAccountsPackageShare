@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Invoices>
+
+@{
+    var firstObj = Model.FirstOrDefault();
+}
+<div class="container mt-4 p-3 border border-dark bg-light text-black">
+    <div class="container p2">
+        <div class="row">
+            <div class="col-2 border border-dark bg-white">
+                <h3>Account Code:</h3>
+            </div>
+            <div class="col-3 border border-dark bg-white">
+                <h3>@firstObj.AccountCode</h3>
+            </div>
+            <div class="col-7 border border-dark bg-white">
+                <h3>@firstObj.AccountName</h3>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-2">
+                <button class="btn"><a asp-controller="Account" asp-action="GetByAccountCode" asp-route-AccountCode="@firstObj.AccountCode">Account Details</a></button>
+            </div>
+            <div class="col-2">
+                <button class="btn bg-dark"><a asp-controller="Invoices" asp-action="GetAccountInvoices" asp-route-AccountCode="@firstObj.AccountCode">Invoices</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <table class="table table-bordered text-black" style="width:100%;">
+                        <tr class="bg-secondary">
+                            <th>Invoice Date</th>
+                            <th>Invoice Due Date</th>
+                            <th>Invoice Number</th>
+                            <th>NET</th>
+                            <th>VAT</th>
+                            <th>GROSS</th>
+                            <th>Payment Status</th>
+                            <th>Description</th>
+                        </tr>
+                        @foreach (var obj in Model)
+                        {
+                            <tr class="bg-white">
+                                <td>@obj.InvoiceDate.ToShortDateString()</td>
+                                <td>@obj.InvoiceDueDate.ToShortDateString()</td>
+                                <td>@obj.InvoiceNumber</td>
+                                <td>@obj.Net</td>
+                                <td>@obj.Vat</td>
+                                <td>@obj.Gross</td>
+                                <td>@obj.Status</td>
+                                <td>@obj.Description</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
