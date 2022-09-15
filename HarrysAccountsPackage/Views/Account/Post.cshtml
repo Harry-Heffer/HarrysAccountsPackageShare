@@ -1,0 +1,58 @@
+﻿@model HarrysAccountsPackage.Models.Account
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<div class="row mt-4">
+    <div class="col-md-4 border border-dark bg-light text-dark">
+        <h1>Post</h1>
+
+        <h4>Account</h4>
+        <hr />
+        <form asp-action="Post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountCode" class="control-label"></label>
+                <input asp-for="AccountCode" class="form-control" />
+                <span asp-validation-for="AccountCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountName" class="control-label"></label>
+                <input asp-for="AccountName" class="form-control" />
+                <span asp-validation-for="AccountName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentTerms" class="control-label"></label>
+                <input asp-for="PaymentTerms" class="form-control" />
+                <span asp-validation-for="PaymentTerms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TermsType" class="control-label"></label>
+                <select asp-for="TermsType" class="form-control" />
+                <option value="Days">Days</option>
+                <option value="Months">Months</option>
+                <span asp-validation-for="TermsType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-2 mb-2" />
+                <a asp-action="SalesLedger">Back to Sales Ledger</a>
+            </div>
+        </form>
+    </div>
+</div>

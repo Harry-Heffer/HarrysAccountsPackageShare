@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="border border-4 border-dark bg-light text-dark mt-4 p-4">
+    <h1 class="display-4 text-center">Welcome</h1>
+    <hr />
+    <h2>Harry's Accounts Package</h2>
+    <hr />
+    <p>This WebApp has been designed to show my ability to create an accounts system using .net 6. The breif for this project is to create an invoice system where you can set up customers and then store all invoices for them.</p>
+    <hr />
+    <h2>Sales Ledger</h2>
+    <hr />
+    <p>If you click on "Accounts" in the navigation bar at the top of this page it will take you a page where you can access Sales Ledger. This area is designed to deliver the funcitonality requested in the brief. Inside there are a few things you can do including:</p>
+    <ul>
+        <li>Search for Customer accounts by Account Code.</li>
+        <li>Post new Customer Accounts.</li>
+        <li>Post new Invoices.</li>
+    </ul>
+    <p>When posting new Accounts this app should not let you do so if the Account Code used when setting up a new Customer already exists, this is to prevent issues around storing the accounts in the database as having two accounts with the same account code will cause parts of the app to provide conflicting information when serving data to the user.</p>
+    <p>Similar validation exists for Invoices, in particular you should not be able to post an invoice if the Account Code used when doing so does not exist or if the Invoice number being used already exists on the account you are trying to post to.</p>
+</div>
