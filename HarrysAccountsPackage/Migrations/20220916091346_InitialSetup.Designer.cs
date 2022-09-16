@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HarrysAccountsPackage.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220912165008_UpdateInvoiceProperties")]
-    partial class UpdateInvoiceProperties
+    [Migration("20220916091346_InitialSetup")]
+    partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,46 +41,24 @@ namespace HarrysAccountsPackage.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PaymentTerms")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TermsType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AccountId");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("HarrysAccountsPackage.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("HarrysAccountsPackage.Models.Invoices", b =>
@@ -95,15 +73,10 @@ namespace HarrysAccountsPackage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("AccountName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Gross")
@@ -122,26 +95,16 @@ namespace HarrysAccountsPackage.Migrations
                     b.Property<double>("Net")
                         .HasColumnType("float");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Vat")
                         .HasColumnType("float");
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("AccountId");
-
                     b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("HarrysAccountsPackage.Models.Invoices", b =>
-                {
-                    b.HasOne("HarrysAccountsPackage.Models.Account", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("AccountId");
-                });
-
-            modelBuilder.Entity("HarrysAccountsPackage.Models.Account", b =>
-                {
-                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }
