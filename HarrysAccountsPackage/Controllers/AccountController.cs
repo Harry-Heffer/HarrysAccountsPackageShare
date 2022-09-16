@@ -89,7 +89,7 @@ namespace HarrysAccountsPackage.Controllers
                 {
                     _db.Accounts.Add(obj);
                     _db.SaveChanges();
-                    return RedirectToAction("PurchaseLedger");
+                    return RedirectToAction("SalesLedger");
                 }
             } else
             // Redirect if an Account with provided account code already exists to prevent duplication
