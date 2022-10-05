@@ -1,11 +1,19 @@
 ﻿using HarrysAccountsPackage.Data;
 using HarrysAccountsPackage.Models;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
+using NuGet.Protocol;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace HarrysAccountsPackage.Controllers
 {
     public class AccountController : Controller
     {
+        HttpClient client = new HttpClient();
+
         private readonly ApplicationDbContext _db;
 
         public AccountController(ApplicationDbContext db)
@@ -20,36 +28,37 @@ namespace HarrysAccountsPackage.Controllers
         }
 
         // Get an Account by AccountCode, should redirect if AccountCode is empty, AccountCode does not exist in database or the Accounts table in database is empty.
-        public IActionResult GetByAccountCode(string? AccountCode)
+        public async Task<ActionResult<Account>> GetByAccountCode(string? AccountCode)
         {
-            // Check if nothing was entered into the customer enquiry input field.
             if (AccountCode == null)
             {
                 return RedirectToAction("GetAccountCodeList");
             }
-            // Check if account code exists in the database.
-            var account = _db.Accounts.FirstOrDefault(x => x.AccountCode == AccountCode);
-            if (account == null)
+            var account = new Account();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7266/api/Account/{AccountCode}");
+            
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("GetAccountCodeList");
+                account = await response.Content.ReadFromJsonAsync<Account>();
             }
-            // Check if Accounts database is empty.
-            var accountsEmpty  = from m in _db.Accounts select m;
-            if (accountsEmpty.Count() == 0)
-            {
-                RedirectToAction("GetAccountCodeListEmpty");
-            }
-            // Return found account
             return View(account);
         }
 
         // Get a list of accounts to choose from if redirected here.
-        public IActionResult GetAccountCodeList()
-        // Get list of accounts in the Accounts table in database.
+        public async Task<ActionResult<List<Account>>> GetAccountCodeList()
         {
-            var accountCodeList = _db.Accounts.ToList();
-            // Return found list with the view.
-            return View(accountCodeList);
+            var accounts = new List<Account>();
+    
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7266/api/Account");
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
+            }
+
+            return View(accounts);
         }
 
         // Get Sales Ledger Homepage.
@@ -67,37 +76,20 @@ namespace HarrysAccountsPackage.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // Post account object to database.
-        public IActionResult Post(Account obj)
+        public async Task<ActionResult<Account>> Post(Account obj)
         {
-            // Check if an account with provided AccountCode property exists.
-            var accExists = from m in _db.Accounts select m;
-            accExists = accExists.Where(x => x.AccountCode == obj.AccountCode);
+            var Account = obj;
 
-            bool accCondition = false;
-
-            if (accExists.Count() > 0)
+            var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7266/api/Account");
+            request.Content = JsonContent.Create(Account);
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
             {
-                accCondition = true;
-            }
-            else
-            {
-                accCondition = false;
-            }
-            if (accCondition == false)
-            {
-                if (ModelState.IsValid)
-                {
-                    _db.Accounts.Add(obj);
-                    _db.SaveChanges();
-                    return RedirectToAction("SalesLedger");
-                }
+                return View("SalesLedger");
             } else
-            // Redirect if an Account with provided account code already exists to prevent duplication
             {
-                ModelState.AddModelError("Custom Error", "An Account with that Account Code already exists, Account Code must be unique.");
-                return View(obj);
+                return View();
             }
-            return View();
         }
     }
 }
